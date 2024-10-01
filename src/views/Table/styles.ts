@@ -8,7 +8,6 @@ export const PaginationContainer = styled.div`
 `
 
 export const Wrapper = styled.section`
-	background-color: violet;
 	grid-area: table;
 	overflow-y: auto;
 `
