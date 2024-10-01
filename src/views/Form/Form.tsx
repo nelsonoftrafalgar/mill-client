@@ -16,7 +16,7 @@ export const Form = () => {
 		control,
 		handleSubmit,
 		reset,
-		formState: { errors, isSubmitSuccessful }
+		formState: { errors, isSubmitSuccessful, isSubmitting }
 	} = useForm<NewTransactionFormData>({
 		resolver: yupResolver(transactionSchema)
 	})
@@ -110,7 +110,9 @@ export const Form = () => {
 						/>
 					)}
 				/>
-				<Button htmlType='submit'>Submit</Button>
+				<Button disabled={isSubmitting} htmlType='submit'>
+					Submit
+				</Button>
 			</StyledForm>
 		</Wrapper>
 	)
