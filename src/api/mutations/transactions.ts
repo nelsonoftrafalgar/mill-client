@@ -6,6 +6,7 @@ import {
 } from '../../store/transactions'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
+import { toast } from 'react-toastify'
 import { useAtomValue } from 'jotai'
 
 export const useCreateTransactionMutation = () => {
@@ -17,9 +18,13 @@ export const useCreateTransactionMutation = () => {
 	return useMutation({
 		mutationFn: createTransaction,
 		onSuccess: () => {
+			toast('Successfully created new transaction', { type: 'success' })
 			queryClient.refetchQueries({
 				queryKey: ['transactions', page, pageSize, filterBeneficiary]
 			})
+		},
+		onError: () => {
+			toast('Failed creating new transaction', { type: 'error' })
 		}
 	})
 }
