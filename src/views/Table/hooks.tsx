@@ -3,6 +3,7 @@ import { Ellipsis } from './styles'
 import { Tooltip } from 'antd'
 import { Transaction } from '../../api/types/transactions'
 import { createColumnHelper } from '@tanstack/react-table'
+import { format } from 'date-fns'
 
 export const useColumns = () => {
 	const columnHelper = createColumnHelper<Transaction>()
@@ -34,7 +35,7 @@ export const useColumns = () => {
 		}),
 		columnHelper.accessor('date', {
 			header: 'Date',
-			cell: (info) => info.getValue()
+			cell: (info) => format(info.getValue(), 'yyyy-MM-dd HH:mm:ss')
 		}),
 		columnHelper.accessor('description', {
 			header: 'Description',
