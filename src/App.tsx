@@ -1,3 +1,4 @@
+import { Filter } from './views/Filter/Filter'
 import { Table } from './views/Table/Table'
 import styled from 'styled-components'
 
@@ -47,10 +48,6 @@ const Main = styled.main`
 	}
 `
 
-const Filter = styled.section`
-	background-color: cadetblue;
-	grid-area: filter;
-`
 const Balance = styled.section`
 	background-color: aquamarine;
 	grid-area: balance;
@@ -72,7 +69,7 @@ export const App = () => {
 		<Wrapper>
 			<Navbar>Navbar</Navbar>
 			<Main>
-				<Filter>Filter</Filter>
+				<Filter />
 				<Balance>Balance</Balance>
 				<Form>Form</Form>
 				<Table />

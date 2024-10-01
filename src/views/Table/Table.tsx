@@ -14,19 +14,24 @@ import {
 	getCoreRowModel,
 	useReactTable
 } from '@tanstack/react-table'
+import { pageAtom, pageSizeAtom } from '../../store/transactions'
+import { useAtom, useSetAtom } from 'jotai'
 
 import { Pagination } from 'antd'
 import { useColumns } from './hooks'
-import { useState } from 'react'
 import { useTransactionsQuery } from '../../api/queries/transactions'
 
 export const Table = () => {
-	const [page, setPage] = useState(1)
-	const [pageSize, setPageSize] = useState(20)
+	const { data } = useTransactionsQuery()
+
+	const setPage = useSetAtom(pageAtom)
+	const [pageSize, setPageSize] = useAtom(pageSizeAtom)
+
 	const columns = useColumns()
-	const { data } = useTransactionsQuery(page, pageSize)
+	const transactions = data?.transactions ?? []
+
 	const table = useReactTable({
-		data: data?.transactions ?? [],
+		data: transactions,
 		columns,
 		getCoreRowModel: getCoreRowModel()
 	})
