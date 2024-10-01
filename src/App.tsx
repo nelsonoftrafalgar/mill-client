@@ -1,5 +1,6 @@
 import { Balance } from './views/Balance/Balance'
 import { Filter } from './views/Filter/Filter'
+import { Form } from './views/Form/Form'
 import { Table } from './views/Table/Table'
 import styled from 'styled-components'
 
@@ -49,11 +50,6 @@ const Main = styled.main`
 	}
 `
 
-const Form = styled.section`
-	background-color: yellow;
-	grid-area: form;
-`
-
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -68,7 +64,7 @@ export const App = () => {
 			<Main>
 				<Filter />
 				<Balance />
-				<Form>Form</Form>
+				<Form />
 				<Table />
 			</Main>
 			<Footer>Footer</Footer>

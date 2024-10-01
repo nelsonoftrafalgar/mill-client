@@ -7,3 +7,6 @@ export interface Transaction {
 	date: string
 	description: string
 }
+
+export type NewTransactionFormData = Omit<Transaction, 'id' | 'date'>
+export type NewTransactionParams = Omit<Transaction, 'id'>

@@ -1,7 +1,6 @@
-import { Container, Wrapper } from './styles'
-
 import { ChangeEventHandler } from 'react'
-import { Input } from 'antd'
+import { Input } from '../../components/Input/Input'
+import { Wrapper } from './styles'
 import { filterBeneficiaryAtom } from '../../store/transactions'
 import { useAtom } from 'jotai'
 
@@ -16,14 +15,12 @@ export const Filter = () => {
 
 	return (
 		<Wrapper>
-			<Container>
-				<label>Filter by beneficiary</label>
-				<Input
-					onChange={handleChange}
-					value={filterBeneficiary}
-					placeholder='Filter by beneficiary'
-				/>
-			</Container>
+			<Input
+				label='Filter by beneficiary'
+				onChange={handleChange}
+				value={filterBeneficiary}
+				placeholder='Filter by beneficiary'
+			/>
 		</Wrapper>
 	)
 }

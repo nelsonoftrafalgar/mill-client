@@ -5,11 +5,3 @@ export const Wrapper = styled.section`
 	display: flex;
 	align-items: center;
 `
-
-export const Container = styled.div`
-	max-width: 200px;
-
-	label {
-		font-size: ${({ theme }) => theme.fontSize.s};
-	}
-`
