@@ -14,6 +14,7 @@ export const Wrapper = styled.section`
 
 export const TableContainer = styled.div`
 	max-height: 0px;
+	padding: ${({ theme }) => theme.elementSpacing};
 `
 
 export const StyledTable = styled.table`
@@ -46,7 +47,7 @@ export const Th = styled.th`
 export const ThContainer = styled.div`
 	display: flex;
 	align-items: center;
-	gap: 10px;
+	gap: ${({ theme }) => theme.elementSpacing};
 `
 
 export const Td = styled.td`
@@ -61,10 +62,10 @@ export const Tr = styled.tr`
 	}
 `
 
-export const Ellipsis = styled.span<{ $maxWidth?: number }>`
+export const Ellipsis = styled.span`
 	display: block;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
-	max-width: ${({ $maxWidth }) => ($maxWidth ? `${$maxWidth}px` : '120px;')};
+	max-width: 120px;
 `
