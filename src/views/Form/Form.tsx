@@ -7,6 +7,7 @@ import { NewTransactionFormData } from '../../api/types/transactions'
 import { format } from 'date-fns'
 import { transactionSchema } from './validation'
 import { useCreateTransactionMutation } from '../../api/mutations/transactions'
+import { useEffect } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 export const Form = () => {
@@ -14,7 +15,8 @@ export const Form = () => {
 	const {
 		control,
 		handleSubmit,
-		formState: { errors }
+		reset,
+		formState: { errors, isSubmitSuccessful }
 	} = useForm<NewTransactionFormData>({
 		resolver: yupResolver(transactionSchema)
 	})
@@ -27,6 +29,12 @@ export const Form = () => {
 		}
 		mutateAsync(payload)
 	}
+
+	useEffect(() => {
+		if (isSubmitSuccessful) {
+			reset()
+		}
+	}, [isSubmitSuccessful, reset])
 
 	return (
 		<Wrapper>

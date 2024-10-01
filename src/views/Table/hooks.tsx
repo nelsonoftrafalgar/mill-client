@@ -1,3 +1,4 @@
+import { DeleteTransaction } from '../../components/DeleteTransaction/DeleteTransaction'
 import { Transaction } from '../../api/types/transactions'
 import { createColumnHelper } from '@tanstack/react-table'
 
@@ -28,6 +29,10 @@ export const useColumns = () => {
 		columnHelper.accessor('description', {
 			header: 'Description',
 			cell: (info) => info.getValue()
+		}),
+		columnHelper.display({
+			id: 'menu',
+			cell: ({ row }) => <DeleteTransaction id={row.original.id} />
 		})
 	]
 

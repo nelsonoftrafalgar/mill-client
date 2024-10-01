@@ -15,10 +15,9 @@ export const getTransactions = async (
 }
 
 export const createTransaction = async (payload: NewTransactionParams) => {
-	const { data, headers } = await axios.post<Transaction>(
-		'http://localhost:3000/transactions',
-		payload
-	)
+	await axios.post('http://localhost:3000/transactions', payload)
+}
 
-	return { transactions: data, headers }
+export const deleteTransaction = async (id: number) => {
+	await axios.delete(`http://localhost:3000/transactions/${id}`)
 }

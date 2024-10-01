@@ -1,16 +1,25 @@
+import {
+	enableTransactionsQuery,
+	filterBeneficiaryAtom,
+	pageAtom
+} from '../../store/transactions'
+import { useAtom, useSetAtom } from 'jotai'
+
 import { ChangeEventHandler } from 'react'
 import { Input } from '../../components/Input/Input'
 import { Wrapper } from './styles'
-import { filterBeneficiaryAtom } from '../../store/transactions'
-import { useAtom } from 'jotai'
 
 export const Filter = () => {
 	const [filterBeneficiary, setFilterBeneficiary] = useAtom(
 		filterBeneficiaryAtom
 	)
+	const setPage = useSetAtom(pageAtom)
+	const setEnableTransactionsQuery = useSetAtom(enableTransactionsQuery)
 
 	const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
 		setFilterBeneficiary(e.target.value)
+		setEnableTransactionsQuery(false)
+		setPage(1)
 	}
 
 	return (

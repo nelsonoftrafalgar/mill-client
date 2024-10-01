@@ -15,16 +15,16 @@ import {
 	useReactTable
 } from '@tanstack/react-table'
 import { pageAtom, pageSizeAtom } from '../../store/transactions'
-import { useAtom, useSetAtom } from 'jotai'
 
 import { Pagination } from 'antd'
+import { useAtom } from 'jotai'
 import { useColumns } from './hooks'
 import { useTransactionsQuery } from '../../api/queries/transactions'
 
 export const Table = () => {
 	const { data } = useTransactionsQuery()
 
-	const setPage = useSetAtom(pageAtom)
+	const [page, setPage] = useAtom(pageAtom)
 	const [pageSize, setPageSize] = useAtom(pageSizeAtom)
 
 	const columns = useColumns()
@@ -85,6 +85,7 @@ export const Table = () => {
 					showTotal={(total) => `Total ${total} items`}
 					onChange={handlePagination}
 					pageSize={pageSize}
+					current={page}
 				/>
 			</PaginationContainer>
 		</>

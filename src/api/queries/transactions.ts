@@ -1,4 +1,5 @@
 import {
+	enableTransactionsQuery,
 	filterBeneficiaryAtom,
 	pageAtom,
 	pageSizeAtom
@@ -7,18 +8,24 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
 import { getTransactions } from '../services/transactions'
 import { useAtomValue } from 'jotai'
-import { useDebounce } from '../../utils/debounce'
+import { useFilterTransactionsDebounce } from '../../utils/debounce'
 
 export const useTransactionsQuery = () => {
 	const page = useAtomValue(pageAtom)
 	const pageSize = useAtomValue(pageSizeAtom)
 	const filterBeneficiary = useAtomValue(filterBeneficiaryAtom)
+	const enabled = useAtomValue(enableTransactionsQuery)
 
-	const debouncedFilter = useDebounce(filterBeneficiary, 300)
+	const { debouncedValue } = useFilterTransactionsDebounce(
+		filterBeneficiary,
+		300
+	)
 
 	return useQuery({
-		queryKey: ['transactions', page, pageSize, debouncedFilter],
-		queryFn: () => getTransactions(page, pageSize, debouncedFilter),
-		placeholderData: keepPreviousData
+		queryKey: ['transactions', page, pageSize, debouncedValue],
+		queryFn: () => getTransactions(page, pageSize, debouncedValue),
+		placeholderData: keepPreviousData,
+		enabled,
+		staleTime: 10 * 1000
 	})
 }
