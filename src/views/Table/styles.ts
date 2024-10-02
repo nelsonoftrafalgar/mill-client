@@ -69,3 +69,10 @@ export const Ellipsis = styled.span`
 	overflow: hidden;
 	max-width: 120px;
 `
+
+export const Loader = styled.div`
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`

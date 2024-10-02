@@ -1,4 +1,5 @@
 import {
+	Loader,
 	PaginationContainer,
 	StyledTable,
 	TableContainer,
@@ -9,6 +10,7 @@ import {
 	Tr,
 	Wrapper
 } from './styles'
+import { Pagination, Spin } from 'antd'
 import {
 	flexRender,
 	getCoreRowModel,
@@ -16,13 +18,12 @@ import {
 } from '@tanstack/react-table'
 import { pageAtom, pageSizeAtom } from '../../store/transactions'
 
-import { Pagination } from 'antd'
 import { useAtom } from 'jotai'
 import { useColumns } from './hooks'
 import { useTransactionsQuery } from '../../api/queries/transactions'
 
 export const Table = () => {
-	const { data } = useTransactionsQuery()
+	const { data, isLoading } = useTransactionsQuery()
 
 	const [page, setPage] = useAtom(pageAtom)
 	const [pageSize, setPageSize] = useAtom(pageSizeAtom)
@@ -46,36 +47,45 @@ export const Table = () => {
 	return (
 		<>
 			<Wrapper>
-				<TableContainer>
-					<StyledTable>
-						<TableHead>
-							{table.getHeaderGroups().map((headerGroup) => (
-								<tr key={headerGroup.id}>
-									{headerGroup.headers.map((header) => (
-										<Th key={header.id} onClick={header.column.getToggleSortingHandler()}>
-											<ThContainer>
-												{header.isPlaceholder
-													? null
-													: flexRender(header.column.columnDef.header, header.getContext())}
-											</ThContainer>
-										</Th>
-									))}
-								</tr>
-							))}
-						</TableHead>
-						<tbody>
-							{table.getRowModel().rows.map((row) => (
-								<Tr key={row.id}>
-									{row.getVisibleCells().map((cell) => (
-										<Td key={cell.id}>
-											{flexRender(cell.column.columnDef.cell, cell.getContext())}
-										</Td>
-									))}
-								</Tr>
-							))}
-						</tbody>
-					</StyledTable>
-				</TableContainer>
+				{isLoading ? (
+					<Loader>
+						<Spin size='large' />
+					</Loader>
+				) : (
+					<TableContainer>
+						<StyledTable>
+							<TableHead>
+								{table.getHeaderGroups().map((headerGroup) => (
+									<tr key={headerGroup.id}>
+										{headerGroup.headers.map((header) => (
+											<Th
+												key={header.id}
+												onClick={header.column.getToggleSortingHandler()}
+											>
+												<ThContainer>
+													{header.isPlaceholder
+														? null
+														: flexRender(header.column.columnDef.header, header.getContext())}
+												</ThContainer>
+											</Th>
+										))}
+									</tr>
+								))}
+							</TableHead>
+							<tbody>
+								{table.getRowModel().rows.map((row) => (
+									<Tr key={row.id}>
+										{row.getVisibleCells().map((cell) => (
+											<Td key={cell.id}>
+												{flexRender(cell.column.columnDef.cell, cell.getContext())}
+											</Td>
+										))}
+									</Tr>
+								))}
+							</tbody>
+						</StyledTable>
+					</TableContainer>
+				)}
 			</Wrapper>
 			<PaginationContainer>
 				<Pagination
